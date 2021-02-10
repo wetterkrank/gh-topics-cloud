@@ -14,11 +14,20 @@
 
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
-
-  <meta name="theme-color" content="#fafafa">
 </head>
 
 <body>
+
+  <div class="wrapper">
+    <div class="container">
+      <form id="search-form">
+        <label for="username">Your GitHub username:</label><br>
+        <input id="username" type="text" name="username" required>
+        <input type="submit" value="Search">
+      </form>
+      <div id="gh-topics"></div>
+    </div>
+  </div>
 
   <!-- Scripts -->
   <script src="bundle.js"></script>
