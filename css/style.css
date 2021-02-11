@@ -101,43 +101,78 @@
 
   .container {
     max-width: 1000px;
-    margin: 50px auto 50px auto;
+    margin: auto;
   }
 
   #search-form {
     width: 400px;
-    margin: auto;
-    margin-bottom: 30px;
+    margin: 50px auto 50px auto;
     text-align: center;
   }
 
-  input[type=text] {
+  #search-form input[type=text] {
     padding: 5px;
     margin: 10px 0;
   }
 
-  input[type=submit] {
+  #search-form input[type=submit] {
     padding: 5px 10px 5px 10px;
     margin: 10px 0;
   }
 
+  #gh-topics {
+    text-align: center;
+  }
+  
+  #gh-topics ul {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  
   #gh-topics li {
     display: inline-block;
     margin: 0 .125em .333em 0;
-    /* font-size: 14px; */
-    /* font-weight: 400; */
+    padding: 0 10px 4px 10px;
+    line-height: 22px;
+    vertical-align: middle;
     border: 1px solid transparent;
     border-radius: 2em;
-    padding: 0 10px;
-    line-height: 22px;
+    font-weight: 400;
     color: #0366d6;
     background-color: #e7f3ff;
+  }
+  
+  #gh-topics li.f1 {
+    font-weight: 500;
+    font-size: 80%;
+  }
+  #gh-topics li.f2 {
+    font-size: 100%;
+  }
+  #gh-topics li.f3 {
+    font-size: 120%;
+  }
+  #gh-topics li.f4 {
+    font-size: 140%;
+  }
+  #gh-topics li.f5 {
+    font-size: 160%;
+  }
+
+  #gh-topics a:link {
+    text-decoration: none;
+    color: #0366d6;
+  }
+
+  #gh-topics a:active {
+    text-decoration: none;
+    color: #0366d6;
   }
 
   #gh-topics li:hover {
     background-color: #def;
   }
-
 
   /* ==========================================================================
      Helper classes
