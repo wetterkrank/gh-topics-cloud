@@ -1,5 +1,8 @@
+import "./css/normalize.css";
+import "./css/style.css";
+
 import { Octokit } from "@octokit/rest";
-import { topicsTest } from "./test_data";
+// import { topicsTest } from "./test_data";
 
 interface WordFreqs { [key: string]: number };
 
@@ -41,12 +44,10 @@ function makeTopicsCloud(countedTopics: WordFreqs): HTMLElement | null {
   return ul;
 }
 
-async function submitUsername(event: Event): Promise<void> {
+async function renderTopics(event: Event, input: HTMLInputElement, output: HTMLElement): Promise<void> {
   event.preventDefault();
-  const input = document.getElementById('username') as HTMLInputElement;
   const username: string = input.value;
-  const output = document.getElementById('gh-topics') as HTMLElement;
-
+  
   // const topics: WordFreqs = topicsTest;
   const topics: WordFreqs = await getUserTopics(username);
   const topicsList: HTMLElement | null = makeTopicsCloud(topics);
@@ -58,7 +59,10 @@ async function submitUsername(event: Event): Promise<void> {
 }
 
 function init():void {
-  document.getElementById('search-form')!.addEventListener('submit', submitUsername);
+  const input = document.getElementById('username') as HTMLInputElement;
+  const output = document.getElementById('gh-topics') as HTMLElement;
+  document.getElementById('search-form')!
+    .addEventListener('submit', (event) => { renderTopics(event, input, output) });
 }
 
 document.addEventListener('DOMContentLoaded', init);
