@@ -6,9 +6,12 @@ import { Octokit } from "@octokit/rest";
 
 interface WordFreqs { [key: string]: number };
 
+// Should we import type OctokitResponse from @octokit/types...?
 // TODO: Handle errors, add pagination, throttling, and caching
 async function getUserTopics(username: string): Promise<WordFreqs> {
-  // Should we import type OctokitResponse from @octokit/types...?
+  // @ts-ignore
+  if (typeof topicsTest !== 'undefined') return topicsTest; // for development only
+  
   const gh = new Octokit();
   const repos = await gh.repos.listForUser({ username: username });
   const repoNames: string[] = repos.data.map(repo => repo.name);
@@ -44,17 +47,23 @@ function makeTopicsCloud(countedTopics: WordFreqs): HTMLElement | null {
   return ul;
 }
 
-async function renderTopics(event: Event, input: HTMLInputElement, output: HTMLElement): Promise<void> {
+function spinner(): HTMLElement {
+  const loader = document.createElement('div');
+  loader.classList.add('loader');
+  return loader;
+}
+
+async function demoTopics(event: Event, input: HTMLInputElement, output: HTMLElement): Promise<void> {
   event.preventDefault();
   const username: string = input.value;
+  output.firstChild ? output.firstChild.replaceWith(spinner()) : output.appendChild(spinner());
   
-  // const topics: WordFreqs = topicsTest;
   const topics: WordFreqs = await getUserTopics(username);
   const topicsList: HTMLElement | null = makeTopicsCloud(topics);
-  if (topicsList == null) {
-    output.textContent = 'No topics found for this username';
-  } else {
+  if (topicsList) {
     output.firstChild ? output.firstChild.replaceWith(topicsList) : output.appendChild(topicsList);
+  } else {
+    output.textContent = 'No topics found for this username';
   }
 }
 
@@ -62,7 +71,7 @@ function init():void {
   const input = document.getElementById('username') as HTMLInputElement;
   const output = document.getElementById('gh-topics') as HTMLElement;
   document.getElementById('search-form')!
-    .addEventListener('submit', (event) => { renderTopics(event, input, output) });
+    .addEventListener('submit', (event) => { demoTopics(event, input, output) });
 }
 
 document.addEventListener('DOMContentLoaded', init);

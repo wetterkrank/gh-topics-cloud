@@ -1,5 +1,5 @@
 export const topicsTest = {
-  "devise": 1,
+  "1-2-3-testing-testing": 1,
   "pundit": 1,
   "geocoder": 1,
   "cloudinary": 1,
